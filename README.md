@@ -1,55 +1,30 @@
-# sygma-shared-configuration
+# Sprinter Signing Configuration
 
-This repository uploads shared domains configuration to IPFS (CS Storage) for each Sygma environment.
+This repository stores MPC topology configuration files for the Sprinter signing service. Topology files are automatically uploaded to DigitalOcean Spaces on merge to main.
 
-## Shared Domains Configuration
+## Repository Structure
 
-Format of shared domains configuration for all Sygma services:
-
-```json
-{
-  "domains": [
-    {
-      "id": 0,
-      "name": "",
-      "type": "",
-      "bridgeContract": "",
-      "handlers": [
-        {
-          "type": "", // erc20 / erc721 / permissionedGeneric / permissionlessGeneric / xc20
-          "address": ""
-        }
-      ],
-      "nativeTokenSymbol": "",
-      "nativeTokenFullName": "",
-      "nativeTokenDecimals": 0,
-      "blockConfirmations": 0,
-      "startBlock": "",
-      "resources": [
-        {
-          "resourceId": "",
-          "type": "",
-          "address": "",
-          "symbol": ""
-        }
-      ]
-    }
-  ]
-}
 ```
-- domains - array of domains that the bridge is supporting
-  - id - domain id
-  - name - domain name
-  - type - domain type (substrate, evm)
-  - bridgeContract - address of the bridge contract
-  - handlers - information about the type and address of the handlers contracts
-    - type - handler type (erc20, erc721, permissionedGeneric, permissionlessGeneric)
-    - address - handler contract address (hex)
-  - nativeTokenSymbol - string that represents symbol of the native token on the domain
-  - nativeTokenFullName - string that represents full name of the native token on the domain
-  - nativeTokenDecimals - decimal count of the native token on the domain
-  - resources - array of resources that the bridge is supporting.
-    - resourceId - any hex string
-    - type - resource type (erc20, erc721, permissionlessGeneric, permissionedGeneric)
-    - address - address of the contract to which the resourceID is mapped (empty if type permissionlessGeneric)
-    - symbol - symbol of the resource (eg. USDC) (empty if type permissionlessGeneric)
+/
+├── staging/
+│   └── topology          # Staging environment topology
+├── production/
+│   └── topology          # Production environment topology
+├── .github/
+│   └── workflows/
+│       ├── publish-staging.yml
+│       └── publish-production.yml
+├── README.md
+└── CLAUDE.md
+```
+
+## Topology Files
+
+Topology files are hex-encoded MPC topology configurations used by the Sprinter signing service.
+
+## Deployment
+
+On merge to `main`, configurations are automatically published to DigitalOcean Spaces:
+- `staging/` -> `sprinter-signing-config/staging/`
+- `production/` -> `sprinter-signing-config/production/`
+

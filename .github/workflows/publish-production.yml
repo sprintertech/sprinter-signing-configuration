@@ -1,0 +1,30 @@
+name: Publish Production Topology
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'production/**'
+
+permissions: read-all
+
+jobs:
+  publish_production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Upload production topology to DO Spaces
+        uses: jakejarvis/s3-sync-action@v0.5.1
+        with:
+          args: --acl public-read
+        env:
+          AWS_S3_BUCKET: sprinter-signing-config
+          AWS_ACCESS_KEY_ID: ${{ secrets.DO_SPACES_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.DO_SPACES_SECRET }}
+          AWS_S3_ENDPOINT: https://fra1.digitaloceanspaces.com
+          AWS_REGION: fra1
+          SOURCE_DIR: './production'
+          DEST_DIR: 'production'
