@@ -19,7 +19,7 @@ jobs:
       - name: Upload staging topology to DO Spaces
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
-          args: --acl public-read
+          args: --acl private
         env:
           AWS_S3_BUCKET: sprinter-signing-config
           AWS_ACCESS_KEY_ID: ${{ secrets.DO_SPACES_KEY }}
