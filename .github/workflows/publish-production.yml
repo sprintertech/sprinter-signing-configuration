@@ -17,14 +17,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Upload production topology to DO Spaces
-        uses: jakejarvis/s3-sync-action@v0.5.1
+        uses: shallwefootball/upload-s3-action@master
         with:
-          args: --acl private
-        env:
-          AWS_S3_BUCKET: sprinter-signing-config
-          AWS_ACCESS_KEY_ID: ${{ secrets.DO_SPACES_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.DO_SPACES_SECRET }}
-          AWS_S3_ENDPOINT: https://fra1.digitaloceanspaces.com
-          AWS_REGION: fra1
-          SOURCE_DIR: './production'
-          DEST_DIR: 'production'
+          aws_key_id: ${{ secrets.DO_SPACES_KEY }}
+          aws_secret_access_key: ${{ secrets.DO_SPACES_SECRET }}
+          aws_bucket: sprinter-signing-config
+          source_dir: './production'
+          destination_dir: 'production'
+          endpoint: https://fra1.digitaloceanspaces.com
