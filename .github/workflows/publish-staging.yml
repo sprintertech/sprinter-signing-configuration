@@ -1,0 +1,27 @@
+name: Publish Staging Topology
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'staging/**'
+
+permissions: read-all
+
+jobs:
+  publish_staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Upload staging topology to DO Spaces
+        uses: shallwefootball/upload-s3-action@master
+        with:
+          aws_key_id: ${{ secrets.DO_SPACES_KEY }}
+          aws_secret_access_key: ${{ secrets.DO_SPACES_SECRET }}
+          aws_bucket: sprinter-signing-config
+          source_dir: './staging'
+          destination_dir: 'staging'
+          endpoint: https://ams3.digitaloceanspaces.com
