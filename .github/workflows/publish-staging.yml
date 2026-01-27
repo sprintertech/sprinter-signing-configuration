@@ -24,4 +24,4 @@ jobs:
           aws_bucket: sprinter-signing-config
           source_dir: './staging'
           destination_dir: 'staging'
-          endpoint: https://fra1.digitaloceanspaces.com
+          endpoint: https://ams3.digitaloceanspaces.com
