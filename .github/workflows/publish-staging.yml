@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.2
 
       - name: Upload staging topology to DO Spaces
-        uses: shallwefootball/upload-s3-action@master
+        uses: shallwefootball/upload-s3-action@v1.3.3
         with:
           aws_key_id: ${{ secrets.DO_SPACES_KEY }}
           aws_secret_access_key: ${{ secrets.DO_SPACES_SECRET }}
